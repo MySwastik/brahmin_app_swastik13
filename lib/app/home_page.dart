@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:brahminapp/common_widgets/platform_alert_dialog.dart';
 import 'package:brahminapp/services/auth.dart';
-class HomePage extends StatefulWidget {
 
+class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
     Text('Item 2'),
     Text('Item 3'),
   ];
+
   Future<void> _signOut(BuildContext context) async {
     try {
       final auth = Provider.of<AuthBase>(context);
@@ -54,7 +55,6 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => _confirmSignOut(context),
           ),
         ],
-
       ),
       body: _pageOptions[_selectedTab],
       drawer: Drawer(
@@ -70,9 +70,9 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               title: Text('Enter'),
-              onTap:()=> Navigator.of(context).push(
+              onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>UserProfile(),
+                  builder: (context) => UserProfile(),
                 ),
               ),
             ),

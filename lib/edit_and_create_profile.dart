@@ -4,9 +4,6 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 class EditAndCreateProfile extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -21,7 +18,7 @@ class EditAndCreateProfileState extends State<EditAndCreateProfile> {
   String _password;
   String _url;
   DateTime _dateTime;
-  File _selectedFile =ImageFile().get();
+  File _selectedFile = ImageFile().get();
 
   Widget _profilePic() {
     return CircularProfileAvatar(
@@ -190,7 +187,7 @@ class EditAndCreateProfileState extends State<EditAndCreateProfile> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.done),
-            onPressed: (){
+            onPressed: () {
               Navigator.of(context).pop();
             },
           ),
@@ -208,7 +205,9 @@ class EditAndCreateProfileState extends State<EditAndCreateProfile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   _profilePic(),
-                  SizedBox(height: 5,),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Divider(
                     height: 2,
                   ),
