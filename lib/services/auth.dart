@@ -3,57 +3,57 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class User {
-  User({@required this.uid});
+class UserId {
+  UserId({@required this.uid});
   final String uid;
 }
 
 abstract class AuthBase {
-  Stream<User> get onAuthStateChanged;
-  Future<User> currentUser();
-  Future<User> signInAnonymously();
-  Future<User> signInWithEmailAndPassword(String email, String password);
-  Future<User> createUserWithEmailAndPassword(String email, String password);
-  Future<User> signInWithGoogle();
+  Stream<UserId> get onAuthStateChanged;
+  Future<UserId> currentUser();
+  Future<UserId> signInAnonymously();
+  Future<UserId> signInWithEmailAndPassword(String email, String password);
+  Future<UserId> createUserWithEmailAndPassword(String email, String password);
+  Future<UserId> signInWithGoogle();
   Future<void> signOut();
 }
 
 class Auth implements AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  User _userFromFirebase(FirebaseUser user) {
+  UserId _userFromFirebase(FirebaseUser user) {
     if (user == null) {
       return null;
     }
-    return User(uid: user.uid);
+    return UserId(uid: user.uid);
   }
 
   @override
-  Stream<User> get onAuthStateChanged {
+  Stream<UserId> get onAuthStateChanged {
     return _firebaseAuth.onAuthStateChanged.map(_userFromFirebase);
   }
 
   @override
-  Future<User> currentUser() async {
+  Future<UserId> currentUser() async {
     final user = await _firebaseAuth.currentUser();
     return _userFromFirebase(user);
   }
 
   @override
-  Future<User> signInAnonymously() async {
+  Future<UserId> signInAnonymously() async {
     final authResult = await _firebaseAuth.signInAnonymously();
     return _userFromFirebase(authResult.user);
   }
 
   @override
-  Future<User> signInWithEmailAndPassword(String email, String password) async {
+  Future<UserId> signInWithEmailAndPassword(String email, String password) async {
     final authResult = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
     return _userFromFirebase(authResult.user);
   }
 
   @override
-  Future<User> createUserWithEmailAndPassword(
+  Future<UserId> createUserWithEmailAndPassword(
       String email, String password) async {
     final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
@@ -61,7 +61,7 @@ class Auth implements AuthBase {
   }
 
   @override
-  Future<User> signInWithGoogle() async {
+  Future<UserId> signInWithGoogle() async {
     final googleSignIn = GoogleSignIn();
     final googleAccount = await googleSignIn.signIn();
     if (googleAccount != null) {

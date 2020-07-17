@@ -18,7 +18,7 @@ class SignInBloc {
 
   void _setIsLoading(bool isLoading) => _isLoadingController.add(isLoading);
 
-  Future<User> _signIn(Future<User> Function() signInMethod) async {
+  Future<UserId> _signIn(Future<UserId> Function() signInMethod) async {
     try {
       _setIsLoading(true);
       return await signInMethod();
@@ -28,8 +28,8 @@ class SignInBloc {
     }
   }
 
-  Future<User> signInAnonymously() async =>
+  Future<UserId> signInAnonymously() async =>
       await _signIn(auth.signInAnonymously);
 
-  Future<User> signInWithGoogle() async => await _signIn(auth.signInWithGoogle);
+  Future<UserId> signInWithGoogle() async => await _signIn(auth.signInWithGoogle);
 }

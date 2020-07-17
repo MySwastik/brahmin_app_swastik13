@@ -1,10 +1,16 @@
-import 'package:brahminapp/common_widgets/user_profile.dart';
+import 'package:brahminapp/enpty_content.dart';
+import 'package:brahminapp/services/database.dart';
+import 'package:brahminapp/user_profile/search_bar.dart';
+import 'package:brahminapp/user_profile/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:brahminapp/common_widgets/platform_alert_dialog.dart';
 import 'package:brahminapp/services/auth.dart';
 
 class HomePage extends StatefulWidget {
+  final uid;
+
+  const HomePage({Key key, @required this.uid}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -12,10 +18,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedTab = 0;
   final _pageOptions = [
-    Text('Item 1'),
-    Text('Item 2'),
-    Text('Item 3'),
+    EmptyContent(),
+    Provider<AuthBase>(builder: (context) => Auth(), child: SearchUsers()),
+    EmptyContent(),
   ];
+
 
   Future<void> _signOut(BuildContext context) async {
     try {
@@ -40,9 +47,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DatabaseL>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
+        centerTitle: true,
         actions: <Widget>[
           FlatButton(
             child: Text(
@@ -56,29 +65,48 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: _pageOptions[_selectedTab],
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text('Govind Mishra'),
               accountEmail: Text('mishragovind418@gmail.com'),
+              accountName: Text('Govind mishra'),
               currentAccountPicture: CircleAvatar(
-                child: Text('G'),
                 backgroundColor: Colors.white,
               ),
             ),
             ListTile(
-              title: Text('Enter'),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => UserProfile(),
-                ),
+              trailing: Icon(
+                Icons.account_circle,
+                size: 30,
               ),
+              contentPadding: EdgeInsets.fromLTRB(25, 3, 25, 3),
+              title: Text(
+                'User profile',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.start,
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context){
+                        //database.setData(data: {'firstName':'Edit','lastName':' your name'});
+                       return UserProfilePage(database: database,
+                          uid: widget.uid,
+                        );
+                      }),
+                );
+              },
+            ),
+            Divider(
+              thickness: 1,
             ),
           ],
         ),
       ),
+      body: _pageOptions[_selectedTab],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
         onTap: (int index) {
@@ -97,7 +125,7 @@ class _HomePageState extends State<HomePage> {
             title: Text('Categories'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.account_circle),
             title: Text('Search'),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:brahminapp/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:brahminapp/app/home_page.dart';
@@ -8,15 +9,16 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthBase>(context);
-    return StreamBuilder<User>(
+    return StreamBuilder<UserId>(
         stream: auth.onAuthStateChanged,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            User user = snapshot.data;
+            UserId user = snapshot.data;
             if (user == null) {
               return SignInPage.create(context);
             }
-            return HomePage();
+
+            return  Provider<DatabaseL>(builder:(context)=>FireStoreDatabase(uid: user.uid),child: HomePage(uid: user.uid,));
           } else {
             return Scaffold(
               body: Center(

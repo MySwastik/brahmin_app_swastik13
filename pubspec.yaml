@@ -40,6 +40,8 @@ dependencies:
   circular_profile_avatar: ^1.0.6
   flutter_awesome_alert_box: ^1.0.1
   custom_alert_box: ^0.0.1
+  floating_search_bar: ^0.3.0
+  firebase_storage: ^3.1.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
