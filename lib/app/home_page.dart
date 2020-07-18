@@ -1,3 +1,4 @@
+import 'package:brahminapp/booking_request/booking_request_page.dart';
 import 'package:brahminapp/enpty_content.dart';
 import 'package:brahminapp/services/database.dart';
 import 'package:brahminapp/user_profile/search_bar.dart';
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   final _pageOptions = [
     EmptyContent(),
     Provider<AuthBase>(builder: (context) => Auth(), child: SearchUsers()),
-    EmptyContent(),
+    Provider<AuthBase>(builder:(context)=>Auth(),child: BookingRequestPage()),
   ];
 
 
@@ -121,12 +122,12 @@ class _HomePageState extends State<HomePage> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            title: Text('Categories'),
+            icon: Icon(Icons.group),
+            title: Text('Pundit users'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Search'),
+            icon: Icon(Icons.list),
+            title: Text('Booking request'),
           ),
         ],
       ),

@@ -9,8 +9,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageSelector extends StatefulWidget {
-  ImageSelector({@required this.database});
-
+  ImageSelector({@required this.database, @required this.uid});
+final uid;
   static var url;
   final DatabaseL database;
 
@@ -53,15 +53,11 @@ class _ImageSelectorState extends State<ImageSelector> {
 
   imageUpload(AsyncSnapshot<QuerySnapshot> snapshot, DatabaseL database) async {
     StorageReference reference =
-        FirebaseStorage.instance.ref().child('Users/${widget.database}/ProfilePic');
+        FirebaseStorage.instance.ref().child('Users/${widget.uid}/ProfilePic');
     StorageUploadTask uploadTask = reference.putFile(selectedFile);
     var downloadUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
     var url = downloadUrl.toString();
-    if (snapshot.data.documents.isNotEmpty) {
-      database.setData(data: {'file': url});
-    } else {
-      database.setData(data: {'file': url});
-    }
+    database.setData(data: {'file': url});
   }
 
   @override

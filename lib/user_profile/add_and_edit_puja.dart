@@ -31,8 +31,17 @@ class _AddPujaState extends State<AddPuja> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        widget.database
-            .setPujaOffering(data: {'name': _name, 'rate': _ratePerHour});
+        widget.database.setPujaOffering(data: {
+          'puja': _name,
+          'price': _ratePerHour,
+          'Benefit':
+              'The significance or benefits of performing Lakshmi pooja are as given below: Family life becomes more harmonious– To each & every person in the world, their families are the most treasured people. Performing Lakshmi pooja with all the family members creates a sense of harmony & ensures a peaceful environment at home',
+          'PanditD':
+              '2 pandit will come .One will be purohit and one will be in practice pandit',
+          'Pujan Samagri':
+              'दिवाली पूजा के लिए रोली यानी टीका, चावल (अक्षत), पान-सुपारी, लौंग, इलायची, धूप, कपूर, घी, तेल, दीपक, कलावा, नारियल, गंगाजल, फल, फूल, मिठाई, दूर्वा, चंदन, मेवे, खील, बताशे, चौकी, कलश, फूलों की माला, शंख, लक्ष्मी-गणेश की मूर्ति, थाली, चांदी का सिक्का, 11 दिए और इससे ज्यादा दिये अपनी श्रृद्धानुसार एकत्रित कर लें।',
+          'time': '30min',
+        });
       } on PlatformException catch (e) {
         PlatformExceptionAlertDialog(
           title: 'Operation failed',

@@ -66,8 +66,8 @@ class _BuildPujaState extends State<BuildPuja> {
                   shrinkWrap: true,
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
-                      name = snapshot.data.documents[index].data['name'];
-                      rate = snapshot.data.documents[index].data['rate'];
+                      name = snapshot.data.documents[index].data['puja'];
+                      rate = snapshot.data.documents[index].data['price'];
                       return Container(
                         padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
                         child: Row(

@@ -142,7 +142,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           'aboutYou': _aboutYou,
           'file': file,
           'uid': widget.uid,
+          'coverpic':'https://wallpapercave.com/wp/u9AVLry.jpg',
           'swastik': 0,
+          'region':'BHojpuri',
+          'type':'acharya',
+          'searchKey':_firstName[0],
         });
         Navigator.of(context).pop();
       },
@@ -153,6 +157,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     Navigator.of(context).push(
       MaterialPageRoute(
           builder: (context) => ImageSelector(
+            uid: widget.uid,
                 database: widget.database,
               )),
     );

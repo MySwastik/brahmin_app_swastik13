@@ -1,9 +1,8 @@
 import 'package:brahminapp/services/database.dart';
-import 'package:brahminapp/user_profile/edit_puja_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'add_and_edit_puja.dart';
 class PujaPage extends StatefulWidget {
   final DatabaseL database;
 
@@ -35,8 +34,8 @@ class _PujaPageState extends State<PujaPage> {
             body: ListView.builder(
                 itemCount: snapshot.data.documents.length,
                 itemBuilder: (context, index) {
-                  pujaName = snapshot.data.documents[index].data['name'];
-                  rate = snapshot.data.documents[index].data['rate'];
+                  pujaName = snapshot.data.documents[index].data['puja'];
+                  rate = snapshot.data.documents[index].data['price'];
                   String id=snapshot.data.documents[index].documentID;
                   return Dismissible(
                       key: Key('puja-$index'),
